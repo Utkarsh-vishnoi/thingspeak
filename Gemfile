@@ -1,10 +1,10 @@
 source 'http://rubygems.org'
 
 gem 'rails', '4.0.5'
-gem 'jquery-rails', '3.0.4'
+gem 'jquery-rails'
 gem 'rails_autolink'
 gem 'mysql2'
-gem 'pg'
+gem 'pg', '~> 0.10.1'
 gem 'devise'
 gem 'twitter_oauth', git: 'git://github.com/moomerman/twitter_oauth.git'
 gem 'therubyracer'
