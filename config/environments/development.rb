@@ -1,9 +1,24 @@
+require 'rest-client'
+require 'json'
+
+response = RestClient.get "https://mailtrap.io/api/v1/inboxes.json?api_token=#{ENV['MAILTRAP_API_TOKEN']}"
+first_inbox = JSON.parse(response)[0] # get first inbox
+
 Thingspeak::Application.configure do
   # Settings specified here will take precedence over those in config/environment.rb
 
   # required by devise
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.default_url_options = { :host => "#{ENV['APP_URL']}" }
 
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+  :user_name => first_inbox['username'],
+  :password => first_inbox['password'],
+  :address => first_inbox['domain'],
+  :domain => first_inbox['domain'],
+  :port => first_inbox['smtp_ports'][0],
+  :authentication => :plain
+}
   # In the development environment your application's code is reloaded on
   # every request.  This slows down response time but is perfect for development
   # since you don't have to restart the webserver when you make code changes.
