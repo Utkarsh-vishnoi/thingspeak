@@ -7,13 +7,12 @@ Thingspeak::Application.configure do
 
 	config.action_mailer.delivery_method = :smtp
 	config.action_mailer.smtp_settings = {
-		:enable_starttls_auto => true,
-		:address => 'smtp.gmail.com',
-		:port => 587,
-		:domain => '',
+		:port           => ENV['MAILGUN_SMTP_PORT'],
+		:address        => ENV['MAILGUN_SMTP_SERVER'],
+		:user_name      => ENV['MAILGUN_SMTP_LOGIN'],
+		:password       => ENV['MAILGUN_SMTP_PASSWORD'],
+		:domain         => ENV['APP_URL'],
 		:authentication => :plain,
-		:user_name => '',
-		:password => ''
 	}
 end
 
