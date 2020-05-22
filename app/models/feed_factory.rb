@@ -99,11 +99,11 @@ class FeedFactory < ApplicationController
   def get_feeds
     # get feeds based on entry ids
     if @options[:start_entry_id].present? || @options[:end_entry_id].present?
-      @feeds = Feed.from("feeds FORCE INDEX (index_feeds_on_channel_id_and_entry_id)")
+      @feeds = Feed.from("feeds")
         .where(:channel_id => @channel.id, :entry_id => entry_id_range)
     # get feed based on conditions
     else
-      @feeds = Feed.from("feeds FORCE INDEX (index_feeds_on_channel_id_and_created_at)")
+      @feeds = Feed.from("feeds")
         .where(:channel_id => @channel.id, :created_at => @date_range)
     end
 
